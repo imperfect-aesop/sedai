@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactECharts from "echarts-for-react"; // For rendering the price history chart
+import ReactECharts from "echarts-for-react"; 
 import "../styles/SideDrawer.css";
 
 function SideDrawer({ crypto, onClose }) {
@@ -7,10 +7,7 @@ function SideDrawer({ crypto, onClose }) {
 
   useEffect(() => {
     if (!crypto) return;
-
-    // Connect to CoinCap WebSocket
     const ws = new WebSocket(`wss://ws.coincap.io/prices?assets=${crypto.id}`);
-
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data[crypto.id]) {
@@ -19,11 +16,10 @@ function SideDrawer({ crypto, onClose }) {
     };
 
     return () => {
-      ws.close(); // Cleanup WebSocket connection when component unmounts
+      ws.close(); 
     };
   }, [crypto]);
 
-  // Chart options for price history
   const chartOptions = {
     xAxis: {
       type: "time",
@@ -53,7 +49,7 @@ function SideDrawer({ crypto, onClose }) {
           <div className="custom-col">
             <div className="custom-card p-3">
               <h6>Current Price</h6>
-              <h3>${currentPrice.toFixed(2)}</h3> {/* Updated real-time price */}
+              <h3>${currentPrice.toFixed(2)}</h3> 
             </div>
           </div>
           <div className="custom-col">
