@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "../styles/CryptoPage.css";
 import SideDrawer from "./SideDrawer";
+import { Loader } from "../utils/Loader";
 
 function CryptoPage() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -195,7 +196,7 @@ function CryptoPage() {
               dataLength={filteredCryptoData.length}
               next={fetchCryptoData}
               hasMore={hasMore}
-              loader={<div>Loading...</div>}
+              loader={<Loader/>}
             >
               <table className="crypto-table">
                 <thead>
