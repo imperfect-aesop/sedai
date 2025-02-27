@@ -64,3 +64,22 @@ input::placeholder {
   text-align: left;
   border-bottom: 1px solid #2D3748;
 }
+
+.custom-row {
+  display: flex;
+  overflow-x: auto; /* Enables horizontal scrolling if content overflows */
+  gap: 15px;
+  white-space: nowrap;
+  justify-content: space-between;
+}
+
+.custom-col {
+  flex: 1 1 100%; /* Each column takes full width */
+  min-width: 300px; /* Prevents shrinking too much */
+  max-width: 400px; /* Ensures readability */
+}
+
+/* Optional: Hide Scrollbar for a Cleaner Look */
+.custom-row::-webkit-scrollbar {
+  display: none;
+}

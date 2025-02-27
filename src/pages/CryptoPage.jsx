@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Layout from '../layouts/Layout';
-import ReactECharts from 'echarts-for-react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import '../styles/CryptoPage.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Layout from "../layouts/Layout";
+import InfiniteScroll from "react-infinite-scroll-component";
+import "../styles/CryptoPage.css";
+import SideDrawer from "./SideDrawer";
 
 function CryptoPage() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -12,6 +12,7 @@ function CryptoPage() {
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(0);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false); // State for drawer visibility
 
   // Fetch initial cryptocurrency data
   useEffect(() => {
@@ -27,7 +28,7 @@ function CryptoPage() {
       setOffset((prevOffset) => prevOffset + 10);
       setHasMore(response.data.data.length > 0);
     } catch (error) {
-      console.error('Error fetching crypto data:', error);
+      console.error("Error fetching crypto data:", error);
     } finally {
       setLoading(false);
     }
@@ -37,34 +38,24 @@ function CryptoPage() {
   const fetchPriceHistory = async (id) => {
     try {
       const response = await axios.get(`https://api.coincap.io/v2/assets/${id}/history`, {
-        params: { interval: 'd1', start: Date.now() - 30 * 24 * 60 * 60 * 1000, end: Date.now() },
+        params: { interval: "d1", start: Date.now() - 30 * 24 * 60 * 60 * 1000, end: Date.now() },
       });
       setPriceHistory(response.data.data);
     } catch (error) {
-      console.error('Error fetching price history:', error);
+      console.error("Error fetching price history:", error);
     }
   };
 
   // Handle click on a cryptocurrency card
   const handleCryptoClick = (crypto) => {
-    setSelectedCrypto(crypto);
+    setSelectedCrypto({ ...crypto, priceHistory }); // Pass crypto data and price history
     fetchPriceHistory(crypto.id);
+    setIsDrawerOpen(true); // Open the drawer
   };
 
-  // Chart options for price history
-  const chartOptions = {
-    xAxis: {
-      type: 'time',
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: priceHistory.map((entry) => [entry.time, parseFloat(entry.priceUsd)]),
-        type: 'line',
-      },
-    ],
+  // Close the drawer
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
   };
 
   return (
@@ -106,12 +97,12 @@ function CryptoPage() {
               </thead>
               <tbody>
                 {cryptoData.map((crypto) => (
-                  <tr key={crypto.id} style={{cursor:"pointer"}} onClick={() => handleCryptoClick(crypto)}>
+                  <tr key={crypto.id} style={{ cursor: "pointer" }} onClick={() => handleCryptoClick(crypto)}>
                     <td>{crypto.name}</td>
                     <td>{crypto.symbol}</td>
                     <td>${parseFloat(crypto.marketCapUsd).toLocaleString()}</td>
                     <td>${parseFloat(crypto.priceUsd).toFixed(2)}</td>
-                    <td className={parseFloat(crypto.changePercent24Hr) >= 0 ? 'positive' : 'negative'}>
+                    <td className={parseFloat(crypto.changePercent24Hr) >= 0 ? "positive" : "negative"}>
                       {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
                     </td>
                   </tr>
@@ -121,11 +112,12 @@ function CryptoPage() {
           </InfiniteScroll>
         </div>
 
-        {selectedCrypto && (
-          <div className="side-drawer">
-            <h3>{selectedCrypto.name} Price History (Last 30 Days)</h3>
-            <ReactECharts option={chartOptions} />
-          </div>
+        {/* Side Drawer */}
+        {isDrawerOpen && (
+          <SideDrawer
+            crypto={selectedCrypto}
+            onClose={closeDrawer}
+          />
         )}
       </div>
     </Layout>
