@@ -1,38 +1,66 @@
-.App {
-  text-align: center;
+.main-content {
+  margin-left: 220px; 
+  padding: 20px;
+  background-color: #181b22;
+  color: #fff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.crypto-body {
+  background-color: #181b22;
+  color: #fff;
+  padding: 25px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.positive {
+  color: #48BB78;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.negative {
+  color: #E53E3E;
+}
+
+input::placeholder {
+  color: #ccc !important; 
+  opacity: 1; 
+}
+
+.input-group {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+.search-bar {
+  margin-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.table-container {
+  overflow-x: auto;
+  color: #fff;
+}
+
+.crypto-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #24272E;
+  border-radius: 10px;
+}
+
+.crypto-table th {
+  font-weight: 800;
+  color: #ccc ;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #2D3748;
+}
+
+.crypto-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #2D3748;
 }

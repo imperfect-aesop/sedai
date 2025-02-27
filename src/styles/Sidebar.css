@@ -1,0 +1,25 @@
+.sidebar {
+    background-color: #181822;
+    height: 100vh; 
+    padding-top: 25px;
+    width: 220px; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 100; 
+  }
+  
+  .sidebar .nav-link {
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 10px;
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  
+  .sidebar .nav-link.active,
+  .sidebar .nav-link:hover {
+    background-color: #2a2e38; 
+  }
+
