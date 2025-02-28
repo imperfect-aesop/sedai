@@ -8,7 +8,7 @@ import ExchangePage from './pages/ExchangePage';
 const App = () => (
   <Router>
     <Routes>
-      <Route path="/crypto" element={<CryptoPage />} />
+      <Route path="/" element={<CryptoPage />} />
       <Route path="/exchanges" element={<ExchangePage />} />
     </Routes>
   </Router>

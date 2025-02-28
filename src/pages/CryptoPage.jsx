@@ -15,8 +15,8 @@ function CryptoPage() {
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [paginationMode, setPaginationMode] = useState(true); // Default to pagination
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [paginationMode, setPaginationMode] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   useEffect(() => {
     fetchCryptoData();
@@ -24,7 +24,6 @@ function CryptoPage() {
   }, [offset]);
 
   useEffect(() => {
-    // Filter crypto data whenever searchTerm or cryptoData changes
     filterCryptoData();
   }, [searchTerm, cryptoData]);
 

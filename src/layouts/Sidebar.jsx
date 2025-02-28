@@ -3,16 +3,15 @@ import { Link, useLocation } from 'react-router-dom';
 import '../styles/Sidebar.css';
 
 const Sidebar = () => {
-  const location = useLocation(); // Get current route
-
+  const location = useLocation(); 
   return (
     <nav className="col-md-2 d-md-block sidebar">
       <div className="position-sticky">
         <ul className="nav flex-column">
           <li className="nav-item">
             <Link 
-              to="/crypto" 
-              className={`nav-link ${location.pathname === '/crypto' ? 'active' : ''}`}
+              to="/" 
+              className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
             >
               <i className="fas fa-coins me-2"></i>
               Crypto Currencies

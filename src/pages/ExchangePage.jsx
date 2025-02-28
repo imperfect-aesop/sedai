@@ -8,14 +8,13 @@ function ExchangePage() {
   const [filteredExchanges, setFilteredExchanges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'asc' });
-  const [searchTerm, setSearchTerm] = useState(''); // State for search term
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchExchanges();
   }, []);
 
   useEffect(() => {
-    // Filter exchanges whenever searchTerm or exchanges changes
     filterExchanges();
   }, [searchTerm, exchanges]);
 
@@ -23,7 +22,7 @@ function ExchangePage() {
     try {
       const response = await axios.get('https://api.coincap.io/v2/exchanges');
       setExchanges(response.data.data.slice(0, 50));
-      setFilteredExchanges(response.data.data.slice(0, 50)); // Initialize filteredExchanges with the same data
+      setFilteredExchanges(response.data.data.slice(0, 50)); 
     } catch (error) {
       console.error('Error fetching exchanges:', error);
     } finally {
@@ -31,14 +30,12 @@ function ExchangePage() {
     }
   };
 
-  // Sorting function
   const sortedExchanges = [...filteredExchanges].sort((a, b) => {
-    if (!sortConfig.key) return 0; // No sorting applied
+    if (!sortConfig.key) return 0;
 
     let valA = a[sortConfig.key];
     let valB = b[sortConfig.key];
 
-    // Convert values to numbers if sorting by 'volumeUsd' or 'tradingPairs'
     if (sortConfig.key === 'volumeUsd' || sortConfig.key === 'tradingPairs') {
       valA = parseFloat(valA) || 0;
       valB = parseFloat(valB) || 0;
@@ -49,7 +46,6 @@ function ExchangePage() {
     return 0;
   });
 
-  // Function to change sorting
   const requestSort = (key) => {
     setSortConfig((prev) => ({
       key,
@@ -57,7 +53,6 @@ function ExchangePage() {
     }));
   };
 
-  // Function to filter exchanges based on search term
   const filterExchanges = () => {
     const filteredData = exchanges.filter((exchange) => {
       const searchLower = searchTerm.toLowerCase();
@@ -70,7 +65,6 @@ function ExchangePage() {
     setFilteredExchanges(filteredData);
   };
 
-  // Function to handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
